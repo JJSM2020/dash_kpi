@@ -21,6 +21,13 @@ export default function Auth({ onSuccess }: AuthProps) {
         e.preventDefault();
         setLoading(true);
         try {
+            // BYPASS TEMPORÁRIO DE VALIDAÇÃO
+            // if (isSignUp) { ... } else { ... }
+            showToast('Login bypass ativo: Acesso permitido!', 'success');
+            onSuccess();
+            return;
+
+            /* CÓDIGO ORIGINAL DESABILITADO
             if (isSignUp) {
                 const { error } = await signUpWithEmail(email, password);
                 if (error) {
@@ -31,12 +38,6 @@ export default function Auth({ onSuccess }: AuthProps) {
                     }
                 } else {
                     showToast('Cadastro realizado! Verifique seu email.', 'success');
-                    // Não chamamos correuSuccess imediatamente no signup pois requer confirmação de email geralmente
-                    // Mas dependendo da config do supabase, pode logar direto.
-                    // Se o supabase retornar user e session, está logado. 
-                    // O metodo signUpWithEmail implementado retorna user e error.
-                    // Vamos tentar logar logo após ou pedir login.
-                    // Para simplificar e seguir o prompt de "Novos usuários são criados", vamos dar mensagem de sucesso.
                 }
             } else {
                 const { error } = await signInWithEmail(email, password);
@@ -51,6 +52,7 @@ export default function Auth({ onSuccess }: AuthProps) {
                     onSuccess();
                 }
             }
+            */
         } catch (err) {
             showToast('Ocorreu um erro ao se comunicar com o servidor.', 'error');
         } finally {

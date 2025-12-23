@@ -325,7 +325,7 @@ export default function App() {
   }
 
   if (!user) {
-    return <Auth onSuccess={() => { }} />;
+    return <Auth onSuccess={() => setUser({ id: 'mock-user', email: 'admin@bussola.ai' })} />;
   }
 
 
